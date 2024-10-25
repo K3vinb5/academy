@@ -22,13 +22,13 @@ jobs:
       uses: ./.github/actions/maven_build
       with:
         dockerfile_path: './src/main/docker/Dockerfile.jvm'
-        image_name: 'quarkus-app'
-        version_name: 'latest'
+        image_name: ${{ vars.IMAGE_NAME }}
+        version_name: ${{ vars.IMAGE_VERSION }}
     - name: Uploads docker image to docker hub
       uses: ./.github/actions/docker_push
       with:
-        old_image_name: 'quarkus-app'
-        old_version_name: 'latest'
+        old_image_name: ${{ vars.IMAGE_NAME }}
+        old_version_name: ${{ vars.IMAGE_VERSION }}
         docker_username: ${{ vars.DOCKERHUB_USERNAME }}
         docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: List the Docker Images

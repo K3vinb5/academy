@@ -23,5 +23,5 @@ runs:
       run: ./mvnw -B package --file pom.xml
       shell: bash
     - name: Build Docker File
-      run: docker build . --file ${{ inputs.dockerfile_path }} --tag ${{ inputs.tag_name }}:${{ inputs.tag_name }}
+      run: docker build . --file ${{ inputs.dockerfile_path }} --tag ${{ inputs.image_name }}:${{ inputs.version_name }}
       shell: bash
