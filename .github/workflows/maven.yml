@@ -1,21 +1,10 @@
 name: Java CI with Maven
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 jobs:
-  login:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
   build:
     runs-on: ubuntu-latest
     services:
@@ -27,18 +16,20 @@ jobs:
           POSTGRES_PASSWORD: mysecretpassword
         ports:
           - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
     - uses: actions/checkout@v4
     - name: Build quarkus app and Docker image
       uses: ./.github/actions/maven_build
       with:
         dockerfile_path: './src/main/docker/Dockerfile.jvm'
-        image_name: 'quarkus-app'
-        tag_name: 'latest'
+        image_name: ${{ vars.IMAGE_NAME }}
+        version_name: ${{ vars.IMAGE_VERSION }}
+    - name: Uploads docker image to docker hub
+      uses: ./.github/actions/docker_push
+      with:
+        old_image_name: ${{ vars.IMAGE_NAME }}
+        old_version_name: ${{ vars.IMAGE_VERSION }}
+        docker_username: ${{ vars.DOCKERHUB_USERNAME }}
+        docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: List the Docker Images
       run: docker ps -a

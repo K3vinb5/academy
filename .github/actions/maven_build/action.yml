@@ -5,10 +5,10 @@ inputs:
     description: "Path to the Dockerfile"
     required: true
   image_name:
-    description: "Name of the docker image"
+    description: "Name of the docker image for tag naming"
     required: true
-  tag_name:
-    description: "Name of the docker tag"
+  version_name:
+    description: "Name of the docker version for tag naming"
     required: true
 runs:
   using: composite
