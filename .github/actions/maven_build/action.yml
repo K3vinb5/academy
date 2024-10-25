@@ -4,6 +4,12 @@ inputs:
   dockerfile_path:
     description: "Path to the Dockerfile"
     required: true
+  image_name:
+    description: "Name of the docker image"
+    required: true
+  tag_name:
+    description: "Name of the docker tag"
+    required: true
 runs:
   using: composite
   steps:
@@ -17,5 +23,5 @@ runs:
       run: ./mvnw -B package --file pom.xml
       shell: bash
     - name: Build Docker File
-      run: docker build . --file ${{ inputs.dockerfile_path }} --tag academy:$(date +%s)
+      run: docker build . --file ${{ inputs.dockerfile_path }} --tag ${{ inputs.tag_name }}:${{ inputs.tag_name }}
       shell: bash

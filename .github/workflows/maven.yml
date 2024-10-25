@@ -26,7 +26,7 @@ jobs:
           --health-retries 5
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 21
+    - name: Build quarkus app and Docker image
       uses: ./.github/actions/maven_build
       with:
         dockerfile_path: './src/main/docker/Dockerfile.jvm'
