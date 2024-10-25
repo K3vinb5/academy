@@ -29,6 +29,6 @@ jobs:
     - name: Set up JDK 21
       uses: ./.github/actions/maven_build
       with:
-        dockerfile_path: ./src/main/docker/Dockerfile.jvm
+        dockerfile_path: './src/main/docker/Dockerfile.jvm'
     - name: List the Docker Images
       run: docker ps -a

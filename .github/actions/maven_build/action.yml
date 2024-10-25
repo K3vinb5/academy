@@ -17,5 +17,5 @@ runs:
       run: ./mvnw -B package --file pom.xml
       shell: bash
     - name: Build Docker File
-      run: docker build . --file {{ inputs.dockerfile_path }} --tag academy:$(date +%s)
+      run: docker build . --file ${{ inputs.dockerfile_path }} --tag academy:$(date +%s)
       shell: bash
