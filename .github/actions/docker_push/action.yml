@@ -23,7 +23,7 @@ runs:
         password: ${{ inputs.docker_token }}
     - name: Re-tag Image
       run: docker tag ${{ inputs.old_image_name }}:${{ inputs.old_version_name }} ${{ inputs.docker_username }}/${{ inputs.old_image_name }}:${{ inputs.old_version_name }}
-      shell: shell
+      shell: bash
     - name: Push Image to Docker Hub
       run: docker push ${{ inputs.docker_username }}/${{ inputs.old_image_name }}:${{ inputs.old_version_name }}
-      shell: shell
+      shell: bash
