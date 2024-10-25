@@ -19,10 +19,10 @@ runs:
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
-        username: ${{ vars.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        username: ${{ inputs.docker_username }}
+        password: ${{ inputs.docker_token }}
     - name: Re-tag Image
-      run: docker tag ${{ inputs.old_image_name }}:${{ inputs.old_version_name }} ${{ vars.DOCKERHUB_USERNAME }}/${{ inputs.old_image_name }}:${{ inputs.old_version_name }}
+      run: docker tag ${{ inputs.old_image_name }}:${{ inputs.old_version_name }} ${{ inputs.docker_username }}/${{ inputs.old_image_name }}:${{ inputs.old_version_name }}
       shell: shell
     - name: Push Image to Docker Hub
       run: docker push ${{ inputs.docker_username }}/${{ inputs.old_image_name }}:${{ inputs.old_version_name }}
